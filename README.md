@@ -16,8 +16,6 @@ sudo su -
 git clone https://github.com/adriankae/trusted-proxies-updater.git
 ```
 
-*Note: doesn't have to be done by the root user.*
-
 ## Usage
 Edit path to your nextcloud config.php
 ```
