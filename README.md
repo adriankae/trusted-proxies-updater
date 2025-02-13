@@ -11,17 +11,27 @@ This script is updating the trusted proxies in the nextcloud config if nextcloud
 ## Installation
 
 ```bash
+sudo su -
+
 git clone https://github.com/adriankae/trusted-proxies-updater.git
 ```
 
+*Note: doesn't have to be done by the root user.*
+
 ## Usage
-Make script executable
+Edit path to your nextcloud config.php
+```
+sudo su -
+
+nano {path to teh script}
+```
+Then make the script executable
+
 ```
 sudo su -
 
 chmod +x {path to the script}
 ```
-
 This script is used with crontab. 
 ```
 crontab -e
