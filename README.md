@@ -54,7 +54,7 @@ Save and exit.
 I run it every minute.
 
 ## Tested Environments:
-Debian Bookworm 12 (Linux kernel: 6.6.63 | aarch64) <br />
+Nextcloud 30.0.5.1 - Debian Bookworm 12 (Linux kernel: 6.6.63 | aarch64) <br />
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
