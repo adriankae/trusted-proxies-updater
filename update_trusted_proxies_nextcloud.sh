@@ -1,6 +1,6 @@
 #!/bin/bash
 
-config_file="/var/www/nextcloud/config/config.php.bak"
+config_file="/var/www/nextcloud/config/config.php.bak"    ### put the path to your own config.php here
 
 ###########################################
 ## Check if we have a public IP
@@ -59,83 +59,6 @@ fi
 ################################################
 ## if IP not in nextcloud config, update it
 ################################################
-
-# if ! awk '/^\s*'\''trusted_proxies'\'' =>/,/^\s*\),/' $config_file | grep -q "$ipv4"; then
-#     # Create a temporary file for editing
-#     temp_file=$(mktemp)
-    
-#     # Comment out existing IPv4 entries
-#     awk '
-#         /^\s*'\''trusted_proxies'\'' =>/ {in_block=1}
-#         in_block && /^\s*[0-9]+ => '\''([0-9]{1,3}\.){3}[0-9]{1,3}'\''/ {
-#             ip=$3
-#             gsub(/^'\''|'\''$/, "", ip)  # Correct way to remove surrounding single quotes
-#             if (!(ip ~ /^127\./ || ip ~ /^10\./ || ip ~ /^192\.168\./ || ip ~ /^172\.1[6-9]\./ || ip ~ /^172\.2[0-9]\./ || ip ~ /^172\.3[0-1]\./)) {
-#                 print "#" $0
-#             } else {
-#                 print
-#             }
-#             next
-#         }
-#         in_block && /^\s*\),/ {in_block=0}
-#         {print}
-#     ' "$config_file" > "$temp_file"
-    
-#     # Find the last index in the array to determine where to insert the new IP
-#     last_index=$(awk '/^\s*'\''trusted_proxies'\'' =>/,/^\s*\),/ {if ($1 ~ /^[0-9]+/) max=$1} END {print max+1}' "$temp_file")
-    
-#     # Add the new IP to the array
-#     awk -v new_ip="$ipv4" -v idx="$last_index" '
-#         /^\s*'\''trusted_proxies'\'' =>/ {in_block=1}
-#         in_block && /^\s*\),/ {
-#             printf "    %d => '\''%s'\'',\n%s", idx, new_ip, $0
-#             in_block=0
-#         }
-#         {print}
-#     ' "$temp_file" > "$temp_file.new"
-    
-#     # Move the temporary file back to the original location
-#     mv "$temp_file.new" "$config_file"
-#     rm "$temp_file"
-# fi
-
-# if ! awk '/^\s*'\''trusted_proxies'\'' =>/,/^\s*\),/' "$config_file" | grep -q "$ipv6"; then
-#     # Create a temporary file for editing
-#     temp_file=$(mktemp)
-    
-#     # Comment out existing IPv6 entries
-#     awk '
-#         /^\s*'\''trusted_proxies'\'' =>/ {in_block=1}
-#         in_block && /^\s*[0-9]+ => '\''[0-9a-fA-F:]+'\''/ {
-#             # Check if the string contains "::1" rather than being only "::1"
-#             if (index($0, "::1") == 0) {
-#                 print "#" $0
-#             } else {
-#                 print
-#             }
-#             next
-#         }
-#         in_block && /^\s*\),/ {in_block=0}
-#         {print}
-#     ' "$config_file" > "$temp_file"
-    
-#     # Find the last index in the array to determine where to insert the new IPv6
-#     last_index=$(awk '/^\s*'\''trusted_proxies'\'' =>/,/^\s*\),/ {if ($1 ~ /^[0-9]+/) max=$1} END {print max+1}' "$temp_file")
-    
-#     # Add the new IPv6 to the array
-#     awk -v new_ip="$ipv6" -v idx="$last_index" '
-#         /^\s*'\''trusted_proxies'\'' =>/ {in_block=1}
-#         in_block && /^\s*\),/ {
-#             printf "    %d => '\''%s'\'',\n%s", idx, new_ip, $0
-#             in_block=0
-#         }
-#         {print}
-#     ' "$temp_file" > "$temp_file.new"
-    
-#     # Move the temporary file back to the original location
-#     mv "$temp_file.new" "$config_file"
-#     rm "$temp_file"
-# fi
 
 # Function to update IP in config file
 update_config() {
@@ -207,4 +130,4 @@ update_config "$ipv6" "[0-9a-fA-F:]+" '
     {print}
 '
 
-chown www-data:www-data "$config_file"
+chown www-data:www-data "$config_file" ## modify ownership back to www-data user
