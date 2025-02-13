@@ -10,3 +10,46 @@ This script is updating the trusted proxies in the nextcloud config if nextcloud
 
 ## Installation
 
+```bash
+git clone https://github.com/adriankae/trusted-proxies-updater.git
+```
+
+## Usage
+Make script executable
+```
+sudo su -
+
+chmod +x {path to the script}
+```
+
+This script is used with crontab. 
+```
+crontab -e
+```
+
+Specify the frequency of execution through crontab.
+
+```bash
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday 7 is also Sunday on some systems)
+# │ │ │ │ │ ┌───────────── command to issue                               
+# │ │ │ │ │ │
+# │ │ │ │ │ │
+# * * * * * /bin/bash {path to the script}
+```
+
+Save and exit.
+
+I run it every minute.
+
+## Tested Environments:
+Debian Bookworm 12 (Linux kernel: 6.6.63 | aarch64) <br />
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+[GPL-3.0](https://github.com/adriankae/trusted-proxies-updater/blob/main/LICENSE)
